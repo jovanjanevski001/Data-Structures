@@ -2,7 +2,9 @@
 #define LINKED_LIST_H
 #include <stdio.h>
 
-extern int add(int, int);
-extern int subtract(int, int);
+int add(int, int);
+int subtract(int, int);
+int mult(int, int);
+int print();
 
 #endif // LINKED_LIST_H

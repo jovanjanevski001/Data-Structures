@@ -1,18 +1,23 @@
-
+OUTPUT = output
 CC = gcc
-OBJS = main.o linked_list.o
+DIRS = . ./src
+INCDIR = ./inc
 
-output: $(OBJS)
-	$(CC) $(OBJS) -o output
+DEPFLAGS = -MP -MD
+CFLAGS = -g $(foreach dir, $(INCDIR), -I$(dir)) $(DEPFLAGS)
 
-main.o: main.c
-	$(CC) -c main.c
+CFILES = $(foreach dir, $(DIRS), $(wildcard $(dir)/*.c))
+OBJECTS = $(patsubst %.c, %.o, $(CFILES))
+DEPFILES = $(patsubst %.c, %.d, $(CFILES))
 
-linked_list.o: linked_list.c linked_list.h
-	$(CC) -c linked_list.c
-#default:
-#	gcc -c linked_list.c -o linked_list.o
-#	ar rcs libmylinked_list.a linked_list.o
-#	gcc main.c -L. -lmylinked_list -o main
+
+$(OUTPUT): $(OBJECTS)
+	$(CC) -o $@ $^ 
+	
+%.o: %.c
+	$(CC) $(CFLAGS) -c -o $@ $<
+	
 clean:
-	rm -f *.a *.o *.exe
+	rm -rf $(OUTPUT) $(OBJECTS) $(DEPFILES)
+
+-include $(DEPFILES)
