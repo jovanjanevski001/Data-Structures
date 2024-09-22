@@ -1,10 +1,28 @@
-#include "./inc/linked_list.h"
+#include "linked_list.h"
 
 int main()
 {
-    printf("5 + 3 = %d\n", add(5, 3));
-    printf("5 - 3 = %d\n", subtract(5, 3));
-    printf("5 * 3 = %d\n", mult(5, 3));
-    print();
+    Node* head = (Node*) malloc(sizeof(Node));
+    head = NULL;
+
+    for (int i = 0; i < 10; i++)
+    {
+        head = InsertNodeTail(head, i);
+    }
+    
+    PrintList(head);
+
+    head = InsertNodeBefore(head, -1, 3);
+    head = InsertNodeFront(head, 55);
+    PrintList(head);
+    
+    
+    if (Search(head, -123) == TRUE)
+        printf("Key found!\n");
+    else
+        printf("Key not found\n");
+
+    PrintList(head);
+
     return 0;
 }

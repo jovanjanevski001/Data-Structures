@@ -18,10 +18,6 @@ $(OUTPUT): $(OBJECTS)
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-
-distribute: 
-	git add . && git commit -m "commit from makefile"
-
 clean:
 	@rm -rf $(OUTPUT) $(OBJECTS) $(DEPFILES)
 
