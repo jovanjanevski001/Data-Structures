@@ -114,7 +114,6 @@ Node* DeleteNodeFront(Node* head)
 /* Deletes a node from the end of list */
 Node* DeleteNodeEnd(Node* head)
 {
-
     if (head == NULL)
     {
         printf("List is empty!\n");
