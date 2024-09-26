@@ -13,7 +13,9 @@ typedef struct Node
 
 Node* CreateNode(int data);
 
-Node* AddNodeHead(Node* node, int data);
+Node* AddNodeHead(Node* head, int data);
+Node* AddNodeTail(Node* head, int data);
+Node* AddNode(Node* head, int data, int position);
 
 void PrintList(Node* head);
 

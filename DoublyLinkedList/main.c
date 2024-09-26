@@ -9,6 +9,13 @@ int main()
         head = AddNodeHead(head, i);
     
     PrintList(head);
+
+    head = AddNodeTail(head, 33);
+    head = AddNodeTail(head, 3);
+    head = AddNodeTail(head, 6);
+    head = AddNodeTail(head, -1);
     
+    PrintList(head);
+
     return 0;
 }

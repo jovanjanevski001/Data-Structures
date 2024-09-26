@@ -7,7 +7,7 @@ Node* CreateNode(int data)
     new_node->data = data;
     new_node->next = NULL;
     new_node->prev = NULL;
-
+    
     return new_node;
 }
 
@@ -26,6 +26,44 @@ Node* AddNodeHead(Node* head, int data)
     return new_node;
 }
 
+/* Adds a node to the end of the list */
+Node* AddNodeTail(Node* head, int data)
+{
+    Node* new_node = CreateNode(data);
+
+    // list is empty
+    if (head == NULL)
+        return new_node;
+
+    Node* current = head;
+
+    /* Traverse the list until we reach the end */
+    while (current->next != NULL)
+        current = current->next;
+    
+    current->next = new_node;
+    new_node->prev = current;
+
+    return head;
+}
+
+
+Node* AddNode(Node* head, int data, int position)
+{
+    Node* new_node = CreateNode(data);
+
+    if (head == NULL)
+        return new_node;
+
+    Node* current = head;
+
+
+
+}
+
+
+
+/* Prints the linked list */
 void PrintList(Node* head)
 {
     Node* current = head;
