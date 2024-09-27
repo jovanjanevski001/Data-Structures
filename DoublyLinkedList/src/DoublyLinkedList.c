@@ -57,12 +57,47 @@ Node* AddNode(Node* head, int data, int position)
         return new_node;
 
     Node* current = head;
+    int n = 1;
 
+    if (position == 1)
+    {
+        new_node = AddNodeHead(head, data);
+        return new_node;
+    }
 
+    while (current != NULL && n < position-1)
+    {
+        current = current->next;
+        n++;
+    }
 
+    if (current == NULL)
+        return head;
+
+    else
+    {
+        new_node->next = current->next;
+        new_node->prev = current;
+        current->next = new_node;
+    }
+
+    return head;
 }
 
+/* Returns the length of the list */
+int GetLength(Node* head)
+{
+    Node* current = head;
+    int length = 0;
 
+    while (current != NULL)
+    {
+        length++;
+        current = current->next;
+    }
+
+    return length;
+}
 
 /* Prints the linked list */
 void PrintList(Node* head)

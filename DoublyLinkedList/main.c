@@ -15,7 +15,15 @@ int main()
     head = AddNodeTail(head, 6);
     head = AddNodeTail(head, -1);
     
+    int n = GetLength(head);
+    
+    printf("n is %d\n", n);
     PrintList(head);
+
+
+    head = AddNode(head, 55, 6);
+    PrintList(head);
+
 
     return 0;
 }

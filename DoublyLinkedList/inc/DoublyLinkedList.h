@@ -17,7 +17,7 @@ Node* AddNodeHead(Node* head, int data);
 Node* AddNodeTail(Node* head, int data);
 Node* AddNode(Node* head, int data, int position);
 
+int GetLength(Node* head);
 void PrintList(Node* head);
-
 
 #endif // DOUBLY_LINKED_LIST_H
