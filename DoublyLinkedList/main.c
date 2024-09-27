@@ -21,7 +21,7 @@ int main()
     PrintList(head);
 
 
-    head = AddNode(head, 55, 6);
+    head = AddNode(head, 55, 0);
     PrintList(head);
 
 

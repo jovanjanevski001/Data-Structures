@@ -58,7 +58,14 @@ Node* AddNode(Node* head, int data, int position)
 
     Node* current = head;
     int n = 1;
+    int length = GetLength(head);
 
+    if (position > length || position < n)
+    {
+        printf("Position is out of bounds!!!\n");
+        return head;
+    }
+    
     if (position == 1)
     {
         new_node = AddNodeHead(head, data);
