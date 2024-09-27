@@ -52,6 +52,7 @@ Node* AddNode(Node* head, int data, int position)
 {
     Node* new_node = CreateNode(data);
 
+    // list is empty
     if (head == NULL)
         return new_node;
 
