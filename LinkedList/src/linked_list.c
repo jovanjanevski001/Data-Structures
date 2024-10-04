@@ -38,65 +38,37 @@ Node* InsertNodeTail(Node* head, int data)
     return head; 
 }
 
-/* Inserts a node after the given key */
-Node* InsertNodeAfter(Node* head, int data, int key)
-{   
-    Node* current_node = head;
-
-    while (current_node != NULL)
+/* Inserts a node at the given position of the list */
+Node* InsertNode(Node* head, int data, int pos)
+{
+    if (pos != 1 && pos > GetLength(head) || pos < 1)
     {
-        if (current_node->data == key)
+        printf("Position not in the bounds of the list!\n");
+        return head;
+    }
+
+    Node* current = head;
+    Node* new_node = CreateNode(data);
+    int n = 1;      //  starting position of the list is 1
+
+    /* If the node is inserted as the new head */
+    if (pos == 1)
+        return InsertNodeFront(head, data);
+    
+    while (current != NULL)
+    {
+        /* Stops just before the given position */
+        if (n == pos-1)
             break;
         
-        current_node = current_node->next;
+        n++;
+        current = current->next;
     }
-        
-    if (current_node == NULL)
-        return head;
-
-    Node* new_node = CreateNode(data);
-    new_node->next = current_node->next;
-    current_node->next = new_node;
+    
+    new_node->next = current->next;
+    current->next = new_node;
 
     return head;
-}
-
-/* Inserts a node before the given key */
-Node* InsertNodeBefore(Node* head, int data, int key)
-{
-    Node* current_node = head;
-    Node* prev_node = current_node;
-
-    while (current_node != NULL)
-    {
-        if (current_node->data == key)
-            break;
-
-        prev_node = current_node;
-        current_node = current_node->next;
-    }
-
-    /* Key not found! */
-    if (current_node == NULL)
-        return head;
-
-
-    Node* new_node = CreateNode(data);
-
-    /* Inserting a node before the first node of the list */
-    if (prev_node == current_node)
-    {
-        new_node->next = current_node;
-        return new_node;
-    }
-
-    /* Inserting a node before any other node in the list */
-    else
-    {
-        new_node->next = current_node;
-        prev_node->next = new_node;
-        return head;
-    }
 }
 
 /* Deletes a node from the front of the list */
@@ -108,7 +80,11 @@ Node* DeleteNodeFront(Node* head)
         return NULL;
     }
 
-    return head = head->next;
+    Node* temp = head;
+    head = head->next;
+    free(temp);
+
+    return head;
 }
 
 /* Deletes a node from the end of list */
@@ -136,12 +112,13 @@ Node* DeleteNodeEnd(Node* head)
     }    
 
     prev_node->next = NULL;
-
+    free(current_node);
+    
     return head;
 }
 
 /* Deletes a node from the list given by the key */
-Node* DeleteNode(Node* head, int key)
+Node* DeleteNode(Node* head, int pos)
 {
     if (head == NULL)
     {
@@ -149,30 +126,53 @@ Node* DeleteNode(Node* head, int key)
         return NULL;
     }
 
-    Node* current_node = head;
-    Node* prev_node = current_node;
-
-    while (current_node != NULL)
+    if (pos != 1 && pos > GetLength(head) || pos < 1)
     {
-        if (current_node->data == key)
+        printf("Position given is out of bounds of the list!\n");
+        return head;
+    }
+
+    if (pos == 1)
+        return DeleteNodeFront(head);
+
+    Node* current = head;
+    Node* temp;
+    int n = 1;
+    
+    while (current != NULL)
+    {
+        /* Stop just before the position */
+        if (n == pos-1)
             break;
-        prev_node = current_node;
-        current_node = current_node->next;
-    }    
 
-    /* Key not found in list! */
-    if (current_node == NULL)
-        return NULL;
+        n++;
+        current = current->next;
+    }
 
-    /* If first node was deleted */
-    if (prev_node == current_node)
-        head = current_node->next;
+    temp = current->next;    
+    current->next = current->next->next;
 
-    else
-        prev_node->next = current_node->next;
+    free(temp);
 
     return head;
 }
+
+
+/* Returns the length of the linked list */
+int GetLength(Node* head)
+{
+    int n = 0;
+    Node* current = head;
+
+    while (current != NULL)
+    {
+        n++;
+        current = current->next;
+    }
+    
+    return n;
+}
+
 
 /* Searches the linked list to find key */
 int Search(Node* head, int key)
@@ -193,6 +193,9 @@ int Search(Node* head, int key)
 /* Prints the linked list */
 void PrintList(Node* head)
 {
+    if (head == NULL)
+        printf("List is empty!!!");
+
     while (head != NULL)
     {
         printf("%d ", head->data);
