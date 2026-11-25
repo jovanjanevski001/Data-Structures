@@ -33,4 +33,6 @@ int Search(Node* head, int key);
 void PrintList(Node* head);
 /**********************/
 
+Node* FreeList(Node* head);
+
 #endif // LINKED_LIST_H

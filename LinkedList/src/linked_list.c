@@ -41,20 +41,21 @@ Node* InsertNodeTail(Node* head, int data)
 /* Inserts a node at the given position of the list */
 Node* InsertNode(Node* head, int data, int pos)
 {
-    if (pos != 1 && pos > GetLength(head) || pos < 1)
+    if (pos < 1 || pos > GetLength(head) + 1)
     {
         printf("Position not in the bounds of the list!\n");
         return head;
     }
 
+    /* If the node is inserted as the new head */
+    if (pos == 1)
+        return InsertNodeFront(head, data);
+
+    
     Node* current = head;
     Node* new_node = CreateNode(data);
     int n = 1;      //  starting position of the list is 1
 
-    /* If the node is inserted as the new head */
-    if (pos == 1)
-        return InsertNodeFront(head, data);
-    
     while (current != NULL)
     {
         /* Stops just before the given position */
@@ -98,6 +99,7 @@ Node* DeleteNodeEnd(Node* head)
 
     if (head->next == NULL)
     {
+        free(head);
         printf("Last node removed!\n");
         return NULL;
     }
@@ -126,7 +128,7 @@ Node* DeleteNode(Node* head, int pos)
         return NULL;
     }
 
-    if (pos != 1 && pos > GetLength(head) || pos < 1)
+    if (pos != 1 && (pos > GetLength(head) || pos < 1))
     {
         printf("Position given is out of bounds of the list!\n");
         return head;
@@ -203,4 +205,15 @@ void PrintList(Node* head)
     }
     printf("\n");
     return;
+}
+
+Node* FreeList(Node* head)
+{
+    while (head != NULL)
+    {
+        Node* temp = head;
+        head = head->next;
+        free(temp);
+    }
+    return NULL;
 }
